@@ -1,4 +1,4 @@
-# Pixel Game Jam 202
+# Pixel Game Jam 2024
 By Andrew, Bobby, and Brian
 
 In this essay I will explain what game we made and how we did it and how you can play it!
