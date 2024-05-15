@@ -20,6 +20,7 @@ func _process(delta):
 	if is_drowning and not timer_started:
 		timer_started = true
 		timer = get_tree().create_timer(3)
+		print(\"dying\")
 
 	if not is_drowning and timer_started:
 		timer_started = false
@@ -28,10 +29,10 @@ func _process(delta):
 	if timer_started and timer.time_left == 0:
 		print(\"dead\")
 		timer_started = false
+		get_tree().reload_current_scene()
 
 func _on_area_2d_drowning_change_state(in_water):
 	is_drowning = in_water
-	print(in_water)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mga26"]
@@ -345,6 +346,7 @@ shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="Head/Area2D" to="Head/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Head/Area2D" to="Head/Area2D" method="_on_body_exited"]
 [connection signal="drowning_change_state" from="Head/Area2D" to="Head" method="_on_area_2d_drowning_change_state"]
 [connection signal="body_entered" from="Body/Area2D" to="Body/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Body/Area2D" to="Body/Area2D" method="_on_body_exited"]
