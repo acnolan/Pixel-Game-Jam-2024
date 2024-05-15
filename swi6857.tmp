@@ -14,24 +14,24 @@ var timer: SceneTreeTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	var tree = get_tree()
+	timer = tree.create_timer(3)
 
 func _process(delta):
 	if is_drowning and not timer_started:
 		timer_started = true
-		timer = get_tree().create_timer(3)
-
+		timer.start(3)
+	
 	if not is_drowning and timer_started:
-		timer_started = false
-		print(\"not dying\")
+		timer.stop()
 		
-	if timer_started and timer.time_left == 0:
+	if timer_started and timer.is_stopped():
 		print(\"dead\")
 		timer_started = false
 
-func _on_area_2d_drowning_change_state(in_water):
+
+func _on_area_2d_water_state_changed(in_water):
 	is_drowning = in_water
-	print(in_water)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mga26"]
@@ -41,7 +41,7 @@ radius = 8.0
 resource_name = "drowningdetection"
 script/source = "extends Area2D
 
-signal drowning_change_state(in_water : bool)
+signal water_state_changed(in_water : bool)
 
 var is_drowning: bool = false
 
@@ -50,14 +50,14 @@ func _on_body_entered(body):
 
 	if (overlapping_bodies.size() >= 1):
 		is_drowning = true
-		emit_signal(\"drowning_change_state\", is_drowning)
+		emit_signal(\"water_state_changed\", is_drowning)
 
 func _on_body_exited(body):
 	var overlapping_bodies = get_overlapping_bodies()
 
 	if (overlapping_bodies.size() == 0):
 		is_drowning = false
-		emit_signal(\"drowning_change_state\", is_drowning)
+		emit_signal(\"water_state_changed\", is_drowning)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ybsd"]
@@ -345,7 +345,7 @@ shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="Head/Area2D" to="Head/Area2D" method="_on_body_entered"]
-[connection signal="drowning_change_state" from="Head/Area2D" to="Head" method="_on_area_2d_drowning_change_state"]
+[connection signal="water_state_changed" from="Head/Area2D" to="Head" method="_on_area_2d_water_state_changed"]
 [connection signal="body_entered" from="Body/Area2D" to="Body/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Body/Area2D" to="Body/Area2D" method="_on_body_exited"]
 [connection signal="water_state_changed" from="Body/Area2D" to="Body" method="_on_area_2d_water_state_changed"]
