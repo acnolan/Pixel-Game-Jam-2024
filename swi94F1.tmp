@@ -17,12 +17,13 @@ var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 @export var SWIM_VELOCITY_CAP: float = 0
 
 func _physics_process(delta):
+	print(\"is_in_water\" + String(is_in_water))
 	if is_in_water:
 		linear_velocity.y = clampf(linear_velocity.y + (gravity + delta * SWIM_GRAVITY), -SWIM_VELOCITY_CAP, SWIM_VELOCITY_CAP)
 
 func _on_area_2d_water_state_changed(in_water):
-	is_in_water = in_water
-
+	self.is_in_water = is_in_water
+	print(is_in_water) 
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_euftq"]
@@ -39,6 +40,7 @@ var is_in_water: bool = false
 func _on_body_entered(body):
 	var overlapping_bodies = get_overlapping_bodies()
 
+	print(overlapping_bodies.size())
 	if (overlapping_bodies.size() >= 1):
 		is_in_water = true
 		emit_signal(\"water_state_changed\", is_in_water)
@@ -50,6 +52,7 @@ func _on_body_exited(body):
 	if (overlapping_bodies.size() == 0):
 		is_in_water = false
 		emit_signal(\"water_state_changed\", is_in_water)
+		print(is_in_water)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jrvi"]
@@ -147,6 +150,8 @@ node_b = NodePath("../Body")
 [node name="Body" type="RigidBody2D" parent="."]
 position = Vector2(0, 1)
 script = SubResource("GDScript_5lu3n")
+SWIM_GRAVITY = null
+SWIM_VELOCITY_CAP = null
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
