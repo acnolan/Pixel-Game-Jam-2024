@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwenp1ew2e6rn"]
 
-[ext_resource type="Texture2D" uid="uid://cphjrix17yoj5" path="res://player_sprite_test/watertile.png" id="2_oq5ja"]
+[ext_resource type="Texture2D" uid="uid://cphjrix17yoj5" path="res://water/watertile.png" id="2_oq5ja"]
 [ext_resource type="PackedScene" uid="uid://xdp87vh2ffos" path="res://swimmer.tscn" id="2_uli5x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r577r"]
