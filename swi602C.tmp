@@ -1,6 +1,8 @@
 [gd_scene load_steps=17 format=3 uid="uid://xdp87vh2ffos"]
 
-[ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
+[ext_resource type="Texture2D" uid="uid://ciu0o2xjw7t4h" path="res://player_sprite_test/head.png" id="1_r8i50"]
+[ext_resource type="Texture2D" uid="uid://btfdmgq750evc" path="res://player_sprite_test/body.png" id="2_a4tww"]
+[ext_resource type="Texture2D" uid="uid://dvj4alexitidl" path="res://player_sprite_test/limb.png" id="3_vyo26"]
 
 [sub_resource type="GDScript" id="GDScript_2comb"]
 resource_name = "headscript"
@@ -8,28 +10,26 @@ script/source = "extends RigidBody2D
 
 var is_drowning: bool = false
 var timer_started: bool = false
-var timer: SceneTreeTimer
+var timer: Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	 timer = SceneTree.create_timer(3)
 
 func _process(delta):
 	if is_drowning and not timer_started:
 		timer_started = true
-		timer = get_tree().create_timer(3)
-		print(\"dying\")
-
+		timer.start(3)
+	
 	if not is_drowning and timer_started:
-		timer_started = false
-		print(\"not dying\")
+		timer.stop()
 		
-	if timer_started and timer.time_left == 0:
+	if timer_started and timer.is_stopped():
 		print(\"dead\")
 		timer_started = false
-		get_tree().reload_current_scene()
 
-func _on_area_2d_drowning_change_state(in_water):
+
+func _on_area_2d_water_state_changed(in_water):
 	is_drowning = in_water
 "
 
@@ -40,7 +40,7 @@ radius = 8.0
 resource_name = "drowningdetection"
 script/source = "extends Area2D
 
-signal drowning_change_state(in_water : bool)
+signal water_state_changed(in_water : bool)
 
 var is_drowning: bool = false
 
@@ -49,14 +49,14 @@ func _on_body_entered(body):
 
 	if (overlapping_bodies.size() >= 1):
 		is_drowning = true
-		emit_signal(\"drowning_change_state\", is_drowning)
+		emit_signal(\"water_state_changed\", is_drowning)
 
 func _on_body_exited(body):
 	var overlapping_bodies = get_overlapping_bodies()
 
 	if (overlapping_bodies.size() == 0):
 		is_drowning = false
-		emit_signal(\"drowning_change_state\", is_drowning)
+		emit_signal(\"water_state_changed\", is_drowning)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2ybsd"]
@@ -193,9 +193,7 @@ shape = SubResource("CircleShape2D_mga26")
 
 [node name="Sprite2D" type="Sprite2D" parent="Head"]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(386, 79, 43, 31)
+texture = ExtResource("1_r8i50")
 
 [node name="Area2D" type="Area2D" parent="Head"]
 collision_layer = 0
@@ -219,10 +217,7 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_euftq")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body"]
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(227, 91, 134, 48)
+texture = ExtResource("2_a4tww")
 
 [node name="Area2D" type="Area2D" parent="Body"]
 collision_layer = 0
@@ -238,16 +233,13 @@ node_a = NodePath("../Body")
 node_b = NodePath("../Arm1")
 
 [node name="Arm1" type="RigidBody2D" parent="."]
-position = Vector2(38, -2)
+position = Vector2(39, -3)
 script = SubResource("GDScript_bifso")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Arm1"]
-rotation = -2.77856
-scale = Vector2(0.6, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(567, 49, 40, 31)
+scale = Vector2(0.5, 1)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arm1"]
@@ -266,11 +258,8 @@ script = SubResource("GDScript_eliv6")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Arm2"]
-rotation = -2.73493
-scale = Vector2(0.6, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(479, 52, 37, 29)
+scale = Vector2(0.5, 1)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2"]
@@ -284,15 +273,12 @@ node_a = NodePath("../Body")
 node_b = NodePath("../Leg2")
 
 [node name="Leg2" type="RigidBody2D" parent="."]
-position = Vector2(-47, 13)
+position = Vector2(-49, 5)
 script = SubResource("GDScript_5bbhy")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Leg2"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(27, 145, 162, 53)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leg2"]
@@ -305,15 +291,12 @@ node_a = NodePath("../Body")
 node_b = NodePath("../Leg1")
 
 [node name="Leg1" type="RigidBody2D" parent="."]
-position = Vector2(-47, 2)
+position = Vector2(-49, -4)
 script = SubResource("GDScript_vf11m")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Leg1"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(19, 89, 161, 54)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Leg1"]
@@ -331,11 +314,8 @@ script = SubResource("GDScript_bifso")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Arm3"]
-rotation = -2.41903
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(515, 92, 56, 52)
+scale = Vector2(0.5, 1)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arm3"]
@@ -354,11 +334,8 @@ script = SubResource("GDScript_bifso")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Arm4"]
-rotation = -2.41903
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(516, 90, 56, 54)
+scale = Vector2(0.5, 1)
+texture = ExtResource("3_vyo26")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arm4"]
@@ -367,8 +344,7 @@ shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
 [connection signal="body_entered" from="Head/Area2D" to="Head/Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Head/Area2D" to="Head/Area2D" method="_on_body_exited"]
-[connection signal="drowning_change_state" from="Head/Area2D" to="Head" method="_on_area_2d_drowning_change_state"]
+[connection signal="water_state_changed" from="Head/Area2D" to="Head" method="_on_area_2d_water_state_changed"]
 [connection signal="body_entered" from="Body/Area2D" to="Body/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Body/Area2D" to="Body/Area2D" method="_on_body_exited"]
 [connection signal="water_state_changed" from="Body/Area2D" to="Body" method="_on_area_2d_water_state_changed"]
