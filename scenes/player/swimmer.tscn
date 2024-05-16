@@ -88,19 +88,25 @@ script/source = "extends Area2D
 signal water_state_changed(in_water : bool)
 
 var is_in_water: bool = false
+const SPLASH = preload(\"res://scenes/water/splash.tscn\")
 
 func _on_body_entered(body):
 	var overlapping_bodies = get_overlapping_bodies()
 
 	if (overlapping_bodies.size() >= 1):
+		if (is_in_water == false):
+			var splash = SPLASH.instantiate()
+			get_parent().add_child(splash)
 		is_in_water = true
 		emit_signal(\"water_state_changed\", is_in_water)
-		print(is_in_water)
 
 func _on_body_exited(body):
 	var overlapping_bodies = get_overlapping_bodies()
 
 	if (overlapping_bodies.size() == 0):
+		if (is_in_water == true):
+			var splash = SPLASH.instantiate()
+			get_parent().add_child(splash)
 		is_in_water = false
 		emit_signal(\"water_state_changed\", is_in_water)
 "
