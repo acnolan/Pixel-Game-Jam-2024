@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xdp87vh2ffos"]
+[gd_scene load_steps=15 format=3 uid="uid://xdp87vh2ffos"]
 
 [ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
 
@@ -10,24 +10,22 @@ var is_drowning: bool = false
 var timer_started: bool = false
 var timer: SceneTreeTimer
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	FadeDie.stopAnimation()
 
 func _process(delta):
 	if is_drowning and not timer_started:
 		timer_started = true
 		timer = get_tree().create_timer(3)
-		print(\"dying\")
+		FadeDie.transition()
 
 	if not is_drowning and timer_started:
 		timer_started = false
-		print(\"not dying\")
+		FadeDie.stopAnimation()
 		
 	if timer_started and timer.time_left == 0:
-		print(\"dead\")
 		timer_started = false
-		get_tree().reload_current_scene()
+		get_tree().change_scene_to_file(\"res://game_over.tscn\")
 
 func _on_area_2d_drowning_change_state(in_water):
 	is_drowning = in_water
