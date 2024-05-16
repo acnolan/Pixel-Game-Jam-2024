@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://o1x6rriseppc"]
+
+[ext_resource type="Script" path="res://scripts/how_to_play.gd" id="1_w5n0a"]
+
+[node name="HowToPlay" type="CanvasLayer"]
+script = ExtResource("1_w5n0a")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 440.0
+offset_top = 112.0
+offset_right = -440.0
+offset_bottom = -282.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center][b]How to Play[/b][/center]
+
+[ul]Press S to kick your right leg[/ul]
+[ul]Press W to kick your left leg[/ul]
+[ul]Press I to paddle your left arm[/ul]
+[ul]Press M to paddle your right arm[/ul]
+
+[center]
+Use all these keys to SWIM
+[/center]
+"
+fit_content = true
+
+[node name="Play" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 336.0
+offset_right = -480.0
+offset_bottom = -281.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "I am ready, let's play!"
+
+[node name="Menu" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 480.0
+offset_top = 392.0
+offset_right = -480.0
+offset_bottom = -225.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back to Menu"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://df4ndp5of4s5n"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_dmpb6"]
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_dmpb6")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 544.0
+offset_top = 208.0
+offset_right = -544.0
+offset_bottom = -417.0
+text = "S W I M"
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 544.0
+offset_top = 256.0
+offset_right = -544.0
+offset_bottom = -361.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+
+[node name="Help" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 512.0
+offset_top = 304.0
+offset_right = -512.0
+offset_bottom = -313.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "How to Play"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 552.0
+offset_top = 352.0
+offset_right = -552.0
+offset_bottom = -265.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Help" to="." method="_on_help_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
