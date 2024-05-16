@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://bwenp1ew2e6rn"]
 
-[ext_resource type="Texture2D" uid="uid://dpv5277lmld1l" path="res://water/invisibleblock.png" id="2_om0ux"]
-[ext_resource type="Texture2D" uid="uid://cphjrix17yoj5" path="res://water/watertile.png" id="2_oq5ja"]
-[ext_resource type="PackedScene" uid="uid://xdp87vh2ffos" path="res://swimmer.tscn" id="2_uli5x"]
-[ext_resource type="PackedScene" uid="uid://53sjen4obtre" path="res://parallax_background.tscn" id="4_2ykht"]
+[ext_resource type="Texture2D" uid="uid://dpv5277lmld1l" path="res://art/water/invisibleblock.png" id="2_om0ux"]
+[ext_resource type="Texture2D" uid="uid://cphjrix17yoj5" path="res://art/water/watertile.png" id="2_oq5ja"]
+[ext_resource type="PackedScene" uid="uid://xdp87vh2ffos" path="res://scenes/player/swimmer.tscn" id="2_uli5x"]
+[ext_resource type="PackedScene" uid="uid://53sjen4obtre" path="res://scenes/parallax_background.tscn" id="4_2ykht"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r577r"]
 resource_name = "watertile"

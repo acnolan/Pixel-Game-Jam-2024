@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://xdp87vh2ffos"]
 
-[ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
+[ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://art/player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
 
 [sub_resource type="GDScript" id="GDScript_2comb"]
 resource_name = "headscript"
@@ -25,7 +25,7 @@ func _process(delta):
 		
 	if timer_started and timer.time_left == 0:
 		timer_started = false
-		get_tree().change_scene_to_file(\"res://game_over.tscn\")
+		get_tree().change_scene_to_file(\"res://scenes/game_over/game_over.tscn\")
 
 func _on_area_2d_drowning_change_state(in_water):
 	is_drowning = in_water

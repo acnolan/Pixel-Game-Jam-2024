@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8m63iqdby7m5"
-path="res://.godot/imported/SWIM qwop character sprite sheet.png-0356964d98b982a6eca851ebb6ea5574.ctex"
+uid="uid://cphjrix17yoj5"
+path="res://.godot/imported/watertile.png-f1138d075ed1248a776c90e0c5b6985a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player_sprite/SWIM qwop character sprite sheet.png"
-dest_files=["res://.godot/imported/SWIM qwop character sprite sheet.png-0356964d98b982a6eca851ebb6ea5574.ctex"]
+source_file="res://art/water/watertile.png"
+dest_files=["res://.godot/imported/watertile.png-f1138d075ed1248a776c90e0c5b6985a.ctex"]
 
 [params]
 

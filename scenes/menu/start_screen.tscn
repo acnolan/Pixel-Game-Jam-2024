@@ -1,12 +1,12 @@
 [gd_scene load_steps=2 format=3 uid="uid://df4ndp5of4s5n"]
 
-[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_dmpb6"]
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_q5x0k"]
 
 [node name="StartScreen" type="CanvasLayer"]
-script = ExtResource("1_dmpb6")
+script = ExtResource("1_q5x0k")
 
 [node name="Label" type="Label" parent="."]
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 544.0
