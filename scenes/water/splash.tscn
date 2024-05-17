@@ -23,4 +23,3 @@ trail_lifetime = 0.05
 script = ExtResource("1_av5h1")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-pitch_scale = 0.5
