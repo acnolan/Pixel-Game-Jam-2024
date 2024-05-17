@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1uaw8681mx5y"]
+
+[ext_resource type="Script" path="res://scripts/BreathBar.gd" id="1_p2fu3"]
+[ext_resource type="Texture2D" uid="uid://b2uomrfo83hkg" path="res://art/water/outofbreathbar.png" id="2_spodr"]
+[ext_resource type="Texture2D" uid="uid://cha1qm3phe76a" path="res://art/water/breathbar.png" id="3_h0ofe"]
+
+[node name="BreathBar" type="Control"]
+layout_mode = 3
+anchor_right = 0.108
+anchor_bottom = 0.039
+offset_right = -0.416
+offset_bottom = -0.272001
+script = ExtResource("1_p2fu3")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.384
+anchor_bottom = 0.944
+offset_left = 58.0
+offset_top = 4.0
+offset_right = -0.0160065
+value = 100.0
+texture_under = ExtResource("2_spodr")
+texture_progress = ExtResource("3_h0ofe")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.068
+anchor_bottom = 1.0
+offset_right = -75.432
+offset_bottom = -2.0
+text = "    Air:"

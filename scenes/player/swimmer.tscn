@@ -22,6 +22,9 @@ func _process(delta):
 	if not is_drowning and timer_started:
 		timer_started = false
 		FadeDie.stopAnimation()
+	
+	if(timer_started):
+		get_node(\"../../BreathBar\").updateAir((timer.time_left/3)*100)
 		
 	if timer_started and timer.time_left == 0:
 		timer_started = false
