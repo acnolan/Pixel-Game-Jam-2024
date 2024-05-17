@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk1myjrx0lb8u"]
+[gd_scene load_steps=3 format=3 uid="uid://bk1myjrx0lb8u"]
 
 [ext_resource type="Script" path="res://scripts/game_over.gd" id="1_bqjhi"]
+[ext_resource type="AudioStream" uid="uid://cokuwctp6sj3j" path="res://sounds/music/AndrewWritesAdeathscreen.mp3" id="2_e0fcd"]
 
 [node name="GameOver" type="CanvasLayer"]
 script = ExtResource("1_bqjhi")
@@ -42,6 +43,11 @@ offset_bottom = -289.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Return to menu"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_e0fcd")
+volume_db = 10.0
+autoplay = true
 
 [connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
 [connection signal="pressed" from="Home" to="." method="_on_home_pressed"]
