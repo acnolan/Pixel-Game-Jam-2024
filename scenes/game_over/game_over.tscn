@@ -17,7 +17,10 @@ offset_bottom = -399.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Game Over
-You have died"
+
+Despite your best efforts
+You have succumbed to the sea
+You are dead"
 horizontal_alignment = 1
 
 [node name="PlayAgain" type="Button" parent="."]
@@ -25,9 +28,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 528.0
-offset_top = 272.0
+offset_top = 312.0
 offset_right = -528.0
-offset_bottom = -345.0
+offset_bottom = -305.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Play Again"
@@ -37,9 +40,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 504.0
-offset_top = 328.0
+offset_top = 368.0
 offset_right = -504.0
-offset_bottom = -289.0
+offset_bottom = -249.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Return to menu"
