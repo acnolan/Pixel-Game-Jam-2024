@@ -154,23 +154,6 @@ func _process(delta):
 		apply_torque(-80)
 "
 
-[sub_resource type="GDScript" id="GDScript_5bbhy"]
-resource_name = "leg2"
-script/source = "extends RigidBody2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_key_label_pressed(KEY_S):
-		apply_impulse(Vector2(200,100), Vector2(0, 16))
-		apply_torque(80)
-"
-
 [sub_resource type="GDScript" id="GDScript_vf11m"]
 resource_name = "leg1"
 script/source = "extends RigidBody2D
@@ -188,10 +171,29 @@ func _process(delta):
 		apply_torque(80)
 "
 
+[sub_resource type="GDScript" id="GDScript_5bbhy"]
+resource_name = "leg2"
+script/source = "extends RigidBody2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_key_label_pressed(KEY_S):
+		apply_impulse(Vector2(200,100), Vector2(0, 16))
+		apply_torque(80)
+"
+
 [node name="Swimmer" type="Node2D"]
 
 [node name="Head" type="RigidBody2D" parent="."]
-position = Vector2(21, -16)
+position = Vector2(33, -10)
+collision_layer = 16
+collision_mask = 16
 script = SubResource("GDScript_2comb")
 metadata/_edit_group_ = true
 
@@ -212,13 +214,16 @@ script = SubResource("GDScript_qxe4f")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Area2D"]
 shape = SubResource("CircleShape2D_2ybsd")
 
-[node name="PinJoint2D" type="PinJoint2D" parent="."]
-position = Vector2(19, -8)
+[node name="NeckPin" type="PinJoint2D" parent="."]
+position = Vector2(24, -6)
 node_a = NodePath("../Head")
 node_b = NodePath("../Body")
 
 [node name="Body" type="RigidBody2D" parent="."]
+z_index = 1
 position = Vector2(0, 1)
+collision_layer = 32
+collision_mask = 32
 script = SubResource("GDScript_5lu3n")
 metadata/_edit_group_ = true
 
@@ -239,17 +244,15 @@ script = SubResource("GDScript_8ehw0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Area2D"]
 shape = SubResource("RectangleShape2D_8jrvi")
 
-[node name="PinJoint2D2" type="PinJoint2D" parent="."]
-position = Vector2(25, -4)
-node_a = NodePath("../Body")
-node_b = NodePath("../Arm1")
-
-[node name="Arm1" type="RigidBody2D" parent="."]
-position = Vector2(38, -2)
+[node name="Arm1Bicep" type="RigidBody2D" parent="."]
+z_index = 2
+position = Vector2(29, -4)
+collision_layer = 64
+collision_mask = 64
 script = SubResource("GDScript_bifso")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Arm1"]
+[node name="Sprite2D" type="Sprite2D" parent="Arm1Bicep"]
 rotation = -2.77856
 scale = Vector2(0.6, 0.4)
 texture = ExtResource("1_qkuc5")
@@ -257,22 +260,50 @@ region_enabled = true
 region_rect = Rect2(567, 49, 40, 31)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm1Bicep"]
 scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
-[node name="PinJoint2D3" type="PinJoint2D" parent="."]
-position = Vector2(25, 4)
+[node name="ArmpitPin1" type="PinJoint2D" parent="."]
+position = Vector2(19, -5)
 node_a = NodePath("../Body")
-node_b = NodePath("../Arm2")
+node_b = NodePath("../Arm1Bicep")
 
-[node name="Arm2" type="RigidBody2D" parent="."]
-position = Vector2(39, 7)
+[node name="Arm1Forearm" type="RigidBody2D" parent="."]
+z_index = 2
+position = Vector2(54, -5)
+collision_layer = 64
+collision_mask = 64
+script = SubResource("GDScript_bifso")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Arm1Forearm"]
+rotation = -2.41903
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_qkuc5")
+region_enabled = true
+region_rect = Rect2(515, 92, 56, 52)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm1Forearm"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ocqkf")
+metadata/_edit_group_ = true
+
+[node name="ElbowPin1" type="PinJoint2D" parent="."]
+position = Vector2(39, -4)
+node_a = NodePath("../Arm1Forearm")
+node_b = NodePath("../Arm1Bicep")
+
+[node name="Arm2Bicep" type="RigidBody2D" parent="."]
+position = Vector2(34, 6)
+collision_layer = 4
+collision_mask = 4
 script = SubResource("GDScript_eliv6")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Arm2"]
+[node name="Sprite2D" type="Sprite2D" parent="Arm2Bicep"]
 rotation = -2.73493
 scale = Vector2(0.6, 0.4)
 texture = ExtResource("1_qkuc5")
@@ -280,39 +311,47 @@ region_enabled = true
 region_rect = Rect2(479, 52, 37, 29)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2Bicep"]
 scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
-[node name="PinJoint2D4" type="PinJoint2D" parent="."]
-position = Vector2(-24, 5)
+[node name="ArmpitPin2" type="PinJoint2D" parent="."]
+position = Vector2(25, 4)
 node_a = NodePath("../Body")
-node_b = NodePath("../Leg2")
+node_b = NodePath("../Arm2Bicep")
 
-[node name="Leg2" type="RigidBody2D" parent="."]
-position = Vector2(-47, 13)
-script = SubResource("GDScript_5bbhy")
+[node name="Arm2Forearm" type="RigidBody2D" parent="."]
+z_index = 3
+position = Vector2(57, 6)
+collision_layer = 4
+collision_mask = 4
+script = SubResource("GDScript_bifso")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Leg2"]
-scale = Vector2(0.3, 0.3)
+[node name="Sprite2D" type="Sprite2D" parent="Arm2Forearm"]
+rotation = -2.41903
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_qkuc5")
 region_enabled = true
-region_rect = Rect2(27, 145, 162, 53)
+region_rect = Rect2(516, 90, 56, 54)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2Forearm"]
+scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
-[node name="PinJoint2D5" type="PinJoint2D" parent="."]
-position = Vector2(-24, -4)
-node_a = NodePath("../Body")
-node_b = NodePath("../Leg1")
+[node name="ElbowPin2" type="PinJoint2D" parent="."]
+position = Vector2(44, 7)
+node_a = NodePath("../Arm2Forearm")
+node_b = NodePath("../Arm2Bicep")
 
 [node name="Leg1" type="RigidBody2D" parent="."]
-position = Vector2(-47, 2)
+z_index = 2
+position = Vector2(-46, 4)
+collision_layer = 8
+collision_mask = 8
 script = SubResource("GDScript_vf11m")
 metadata/_edit_group_ = true
 
@@ -327,51 +366,33 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
-[node name="PinJoint2D6" type="PinJoint2D" parent="."]
-position = Vector2(52, -3)
-node_a = NodePath("../Arm3")
-node_b = NodePath("../Arm1")
+[node name="HipPin1" type="PinJoint2D" parent="."]
+position = Vector2(-24, -1)
+node_a = NodePath("../Body")
+node_b = NodePath("../Leg1")
 
-[node name="Arm3" type="RigidBody2D" parent="."]
-position = Vector2(64, -3)
-script = SubResource("GDScript_bifso")
+[node name="Leg2" type="RigidBody2D" parent="."]
+position = Vector2(-47, 12)
+collision_layer = 128
+collision_mask = 128
+script = SubResource("GDScript_5bbhy")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Arm3"]
-rotation = -2.41903
-scale = Vector2(0.4, 0.4)
+[node name="Sprite2D" type="Sprite2D" parent="Leg2"]
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("1_qkuc5")
 region_enabled = true
-region_rect = Rect2(515, 92, 56, 52)
+region_rect = Rect2(27, 145, 162, 53)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm3"]
-scale = Vector2(0.5, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg2"]
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
-[node name="PinJoint2D7" type="PinJoint2D" parent="."]
-position = Vector2(52, 7)
-node_a = NodePath("../Arm4")
-node_b = NodePath("../Arm2")
-
-[node name="Arm4" type="RigidBody2D" parent="."]
-position = Vector2(64, 7)
-script = SubResource("GDScript_bifso")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Arm4"]
-rotation = -2.41903
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_qkuc5")
-region_enabled = true
-region_rect = Rect2(516, 90, 56, 54)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm4"]
-scale = Vector2(0.5, 1)
-shape = SubResource("RectangleShape2D_ocqkf")
-metadata/_edit_group_ = true
+[node name="HipPin2" type="PinJoint2D" parent="."]
+position = Vector2(-24, 7)
+node_a = NodePath("../Body")
+node_b = NodePath("../Leg2")
 
 [connection signal="body_entered" from="Head/Area2D" to="Head/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Head/Area2D" to="Head/Area2D" method="_on_body_exited"]
