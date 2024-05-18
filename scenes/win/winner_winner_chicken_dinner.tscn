@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmsyx3tamux2s"]
+
+[ext_resource type="Texture2D" uid="uid://cjkmqpwh3lvdy" path="res://art/winner/medal.png" id="1_no6it"]
+[ext_resource type="Script" path="res://scripts/winner_winner_chicken_dinner.gd" id="1_q4e7t"]
+[ext_resource type="Texture2D" uid="uid://coh2bpahqfsgk" path="res://art/water/sky.png" id="2_4x4cg"]
+
+[sub_resource type="GDScript" id="GDScript_rp6d6"]
+script/source = "extends ParallaxBackground
+
+func _process(delta):
+	scroll_base_offset -= Vector2(100, 0) * delta
+"
+
+[node name="WinnerWinnerChickenDinner" type="CanvasLayer"]
+script = ExtResource("1_q4e7t")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 384.0
+offset_top = 72.0
+offset_right = -384.0
+offset_bottom = -320.0
+bbcode_enabled = true
+text = "[center][color=black]Congrats you are the survivor of the sea!
+Olympian of the ocean
+Titan of the Tides
+Warrior of the Water
+Navigator of the Nautical
+Voyager of the Vast
+Ruler of the Reefs
+Master of the Maritime
+...
+YOU ARE A WINNER"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 416.0
+offset_top = 48.0
+offset_right = 738.0
+offset_bottom = 305.0
+horizontal_alignment = 1
+
+[node name="PlayAgain" type="Button" parent="."]
+offset_left = 304.0
+offset_top = 464.0
+offset_right = 400.0
+offset_bottom = 495.0
+text = "Play Again"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 752.0
+offset_top = 464.0
+offset_right = 847.0
+offset_bottom = 495.0
+text = "Exit Game
+"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(584, 445)
+scale = Vector2(4, 4)
+texture = ExtResource("1_no6it")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = SubResource("GDScript_rp6d6")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -8)
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(4452, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(2224, 336)
+texture = ExtResource("2_4x4cg")
+
+[connection signal="pressed" from="PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

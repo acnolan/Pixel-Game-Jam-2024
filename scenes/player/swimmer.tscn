@@ -10,10 +10,17 @@ var is_drowning: bool = false
 var timer_started: bool = false
 var timer: SceneTreeTimer
 
+@onready var timeCreated = Time.get_ticks_msec()
+
 func _ready():
 	FadeDie.stopAnimation()
 
 func _process(delta):
+	# If we have survived the whole game, display the victory screen
+	# TODO: Currently set to 3 minutes. We will need to adjust based on the actual length
+	if Time.get_ticks_msec() - timeCreated > 180000:
+		get_tree().change_scene_to_file(\"res://scenes/win/winner_winner_chicken_dinner.tscn\")
+	
 	if is_drowning and not timer_started:
 		timer_started = true
 		timer = get_tree().create_timer(3)
