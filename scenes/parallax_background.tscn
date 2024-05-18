@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://53sjen4obtre"]
+[gd_scene load_steps=10 format=3 uid="uid://53sjen4obtre"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_wlfnx"]
 [ext_resource type="Texture2D" uid="uid://com0yvfelmnom" path="res://art/Swim game solid blue bg-export.png" id="2_hjbjx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d26d1r4643upu" path="res://art/swim game water clouds bg1-export.png" id="3_dd2le"]
 [ext_resource type="Texture2D" uid="uid://byxho5q08uw2b" path="res://art/swim game water clouds fg2-export.png" id="4_u1ltu"]
 [ext_resource type="Texture2D" uid="uid://c4yauinump50v" path="res://art/swim game water clouds fg1-export.png" id="5_256qg"]
+[ext_resource type="Texture2D" uid="uid://e1hk62343b8p" path="res://art/still water bg placeholder.png" id="7_3yqa1"]
 [ext_resource type="Texture2D" uid="uid://c0i3kmq7y468e" path="res://art/waves placeholder.png" id="7_sejug"]
 [ext_resource type="Texture2D" uid="uid://dvi6lmci4yn71" path="res://art/deep water color.png" id="10_jl4g2"]
 
@@ -25,7 +26,7 @@ motion_scale = Vector2(0.1, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="clouds bg"]
-position = Vector2(3, -200)
+position = Vector2(2, -250)
 texture = ExtResource("2_lix18")
 
 [node name="clouds bg2" type="ParallaxLayer" parent="."]
@@ -33,7 +34,7 @@ motion_scale = Vector2(0.2, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="clouds bg2"]
-position = Vector2(1061, -138)
+position = Vector2(1061, -222)
 texture = ExtResource("3_dd2le")
 
 [node name="Clouds fg" type="ParallaxLayer" parent="."]
@@ -41,7 +42,7 @@ motion_scale = Vector2(0.3, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Clouds fg"]
-position = Vector2(33, -455)
+position = Vector2(31, -544)
 texture = ExtResource("4_u1ltu")
 
 [node name="clouds fg 2" type="ParallaxLayer" parent="."]
@@ -49,8 +50,16 @@ motion_scale = Vector2(0.4, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="clouds fg 2"]
-position = Vector2(1079, 352)
+position = Vector2(1079, 244)
 texture = ExtResource("5_256qg")
+
+[node name="Water still bg" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.4, 1)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Water still bg"]
+position = Vector2(576, -85)
+texture = ExtResource("7_3yqa1")
 
 [node name="Water fg1" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.9, 1)
