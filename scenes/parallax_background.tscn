@@ -1,14 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://53sjen4obtre"]
+[gd_scene load_steps=9 format=3 uid="uid://53sjen4obtre"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_wlfnx"]
-[ext_resource type="Texture2D" uid="uid://c121cx08mflvn" path="res://art/swim game water layer 1 background-sheet.png" id="2_fdv2j"]
 [ext_resource type="Texture2D" uid="uid://com0yvfelmnom" path="res://art/Swim game solid blue bg-export.png" id="2_hjbjx"]
 [ext_resource type="Texture2D" uid="uid://bibtvpolpa8n4" path="res://art/swim game water clouds far bg-export.png" id="2_lix18"]
-[ext_resource type="Texture2D" uid="uid://bv2ig040txqta" path="res://art/swim game water fg2-export.png" id="3_c2gaw"]
 [ext_resource type="Texture2D" uid="uid://d26d1r4643upu" path="res://art/swim game water clouds bg1-export.png" id="3_dd2le"]
-[ext_resource type="Texture2D" uid="uid://cbh3h4iajfxft" path="res://art/swim game water bg1-export.png" id="4_3jg8h"]
 [ext_resource type="Texture2D" uid="uid://byxho5q08uw2b" path="res://art/swim game water clouds fg2-export.png" id="4_u1ltu"]
 [ext_resource type="Texture2D" uid="uid://c4yauinump50v" path="res://art/swim game water clouds fg1-export.png" id="5_256qg"]
+[ext_resource type="Texture2D" uid="uid://c0i3kmq7y468e" path="res://art/waves placeholder.png" id="7_sejug"]
 [ext_resource type="Texture2D" uid="uid://dvi6lmci4yn71" path="res://art/deep water color.png" id="10_jl4g2"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
@@ -51,7 +49,7 @@ motion_scale = Vector2(0.4, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="clouds fg 2"]
-position = Vector2(1080, 313)
+position = Vector2(1079, 352)
 texture = ExtResource("5_256qg")
 
 [node name="Water fg1" type="ParallaxLayer" parent="."]
@@ -59,24 +57,8 @@ motion_scale = Vector2(0.9, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Water fg1"]
-position = Vector2(0, 243)
-texture = ExtResource("2_fdv2j")
-
-[node name="Water fg 2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.72, 1)
-motion_mirroring = Vector2(1150, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Water fg 2"]
-position = Vector2(0, 342)
-texture = ExtResource("3_c2gaw")
-
-[node name="Water Bg 1" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.4, 1)
-motion_mirroring = Vector2(1150, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Water Bg 1"]
-position = Vector2(0, 402)
-texture = ExtResource("4_3jg8h")
+position = Vector2(576, -52)
+texture = ExtResource("7_sejug")
 
 [node name="Ocean fg" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.9, 1)
