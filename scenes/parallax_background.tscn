@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://53sjen4obtre"]
+[gd_scene load_steps=10 format=3 uid="uid://53sjen4obtre"]
 
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_wlfnx"]
 [ext_resource type="Texture2D" uid="uid://c121cx08mflvn" path="res://art/swim game water layer 1 background-sheet.png" id="2_fdv2j"]
+[ext_resource type="Texture2D" uid="uid://com0yvfelmnom" path="res://art/Swim game solid blue bg-export.png" id="2_hjbjx"]
 [ext_resource type="Texture2D" uid="uid://bibtvpolpa8n4" path="res://art/swim game water clouds far bg-export.png" id="2_lix18"]
 [ext_resource type="Texture2D" uid="uid://bv2ig040txqta" path="res://art/swim game water fg2-export.png" id="3_c2gaw"]
 [ext_resource type="Texture2D" uid="uid://d26d1r4643upu" path="res://art/swim game water clouds bg1-export.png" id="3_dd2le"]
@@ -11,6 +12,14 @@
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 script = ExtResource("1_wlfnx")
+
+[node name="BAckground solid color" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 1)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="BAckground solid color"]
+position = Vector2(1153, 158)
+texture = ExtResource("2_hjbjx")
 
 [node name="clouds bg" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.1, 1)
