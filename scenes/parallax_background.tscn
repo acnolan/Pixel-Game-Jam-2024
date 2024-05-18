@@ -83,5 +83,5 @@ motion_scale = Vector2(0.9, 1)
 motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ocean fg"]
-position = Vector2(576, 151)
+position = Vector2(576, 136)
 texture = ExtResource("10_jl4g2")
