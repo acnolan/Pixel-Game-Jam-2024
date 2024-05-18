@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://df4ndp5of4s5n"]
+[gd_scene load_steps=7 format=3 uid="uid://df4ndp5of4s5n"]
 
 [ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_q5x0k"]
 [ext_resource type="AudioStream" uid="uid://dvcebhxupgj8k" path="res://sounds/music/AndrewWritesAReallyBasicTitleTheme.mp3" id="2_d7nff"]
 [ext_resource type="Texture2D" uid="uid://coh2bpahqfsgk" path="res://art/water/sky.png" id="3_aqejs"]
+[ext_resource type="PackedScene" uid="uid://o1x6rriseppc" path="res://scenes/menu/how_to_play.tscn" id="4_1lsss"]
+[ext_resource type="Script" path="res://scenes/menu/Window.gd" id="4_3b2eq"]
 
 [sub_resource type="GDScript" id="GDScript_qy5o6"]
 script/source = "extends ParallaxBackground
@@ -78,6 +80,17 @@ motion_mirroring = Vector2(4452, 0)
 position = Vector2(2224, 336)
 texture = ExtResource("3_aqejs")
 
+[node name="Window" type="Window" parent="."]
+title = "How to Play"
+initial_position = 2
+size = Vector2i(640, 480)
+visible = false
+content_scale_mode = 2
+script = ExtResource("4_3b2eq")
+
+[node name="HowToPlay" parent="Window" instance=ExtResource("4_1lsss")]
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
