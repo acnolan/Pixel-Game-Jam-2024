@@ -57,6 +57,7 @@ func _process(delta):
 [node name="World" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
+position = Vector2(0, -128)
 tile_set = SubResource("TileSet_npsls")
 rendering_quadrant_size = 1
 collision_animatable = true
@@ -67,7 +68,7 @@ layer_0/tile_data = PackedInt32Array(589788, 0, 0, 655324, 0, 0, 720860, 0, 0, 7
 position = Vector2(2, -62)
 
 [node name="Camera2D" type="Camera2D" parent="Swimmer"]
-position = Vector2(-2, 90)
+position = Vector2(-2, -39)
 script = SubResource("GDScript_7g52e")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("4_2ykht")]
@@ -77,6 +78,6 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 437.0
-offset_top = 312.0
+offset_top = 170.0
 offset_right = 437.0
-offset_bottom = 312.0
+offset_bottom = 170.0

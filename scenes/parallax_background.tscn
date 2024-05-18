@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://53sjen4obtre"]
 
-[ext_resource type="Texture2D" uid="uid://coh2bpahqfsgk" path="res://art/water/sky.png" id="1_65yia"]
 [ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_wlfnx"]
+[ext_resource type="Texture2D" uid="uid://c121cx08mflvn" path="res://art/swim game water layer 1 background-sheet.png" id="2_fdv2j"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 script = ExtResource("1_wlfnx")
 
 [node name="Sky" type="ParallaxLayer" parent="."]
-motion_mirroring = Vector2(4452, 0)
+motion_mirroring = Vector2(1150, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
-position = Vector2(1604, -51)
-texture = ExtResource("1_65yia")
+position = Vector2(-1, 243)
+texture = ExtResource("2_fdv2j")
