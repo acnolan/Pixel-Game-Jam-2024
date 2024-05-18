@@ -135,9 +135,13 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#old code  apply_central_impulse(Vector2(0,-50))
+#apply_torque(-80)
+
+
 func _process(delta):
 	if Input.is_key_label_pressed(KEY_I):
-		apply_central_impulse(Vector2(0,-50))
+		apply_central_impulse(Vector2(0,-30))
 		apply_torque(-80)
 "
 
@@ -157,7 +161,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_key_label_pressed(KEY_M):
-		apply_central_impulse(Vector2(0,-50))
+		apply_central_impulse(Vector2(0,-30))
 		apply_torque(-80)
 "
 
@@ -172,9 +176,10 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#old values Vector2(200,100), Vector2(0, 16)
 func _process(delta):
 	if Input.is_key_label_pressed(KEY_W):
-		apply_impulse(Vector2(200,100), Vector2(0, 16))
+		apply_impulse(Vector2(0,-50))
 		apply_torque(80)
 "
 
@@ -191,7 +196,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_key_label_pressed(KEY_S):
-		apply_impulse(Vector2(200,100), Vector2(0, 16))
+		apply_impulse(Vector2(0,-50))
 		apply_torque(80)
 "
 
