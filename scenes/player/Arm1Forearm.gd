@@ -9,6 +9,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("KEY_I"):
-		apply_central_impulse(Vector2(0,-500))
+		apply_central_impulse(Vector2(0,-250))
 	if Input.is_action_just_released("KEY_I"):
 		apply_central_impulse(Vector2(-1,5))
