@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://xdp87vh2ffos"]
+[gd_scene load_steps=19 format=3 uid="uid://xdp87vh2ffos"]
 
 [ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://art/player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
 [ext_resource type="Script" path="res://scenes/player/Arm1Forearm.gd" id="2_6vbjk"]
+[ext_resource type="Script" path="res://scenes/player/stroke1.gd" id="2_te1dd"]
 [ext_resource type="Script" path="res://scenes/player/Arm2Forearm.gd" id="3_ktgxt"]
+[ext_resource type="Script" path="res://scenes/player/stroke2.gd" id="4_8f7gl"]
 
 [sub_resource type="GDScript" id="GDScript_2comb"]
 resource_name = "headscript"
@@ -130,19 +132,22 @@ size = Vector2(48, 16)
 resource_name = "arm1"
 script/source = "extends RigidBody2D
 
+var is_swimming: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed(\"KEY_I\"):
+	if Input.is_action_just_pressed(\"KEY_I\") and is_swimming:
 		apply_central_impulse(Vector2(10,-700))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_I\"):
 		apply_torque(-150)
+
+func _on_area_2d_swimming_change_state(in_water):
+	is_swimming = in_water
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ocqkf"]
@@ -152,19 +157,22 @@ size = Vector2(48, 8)
 resource_name = "arm2"
 script/source = "extends RigidBody2D
 
+var is_swimming: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed(\"KEY_M\"):
+	if Input.is_action_just_pressed(\"KEY_M\") and is_swimming:
 		apply_central_impulse(Vector2(10,-700))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_M\"):
 		apply_torque(-150)
+
+func _on_area_2d_swimming_change_state(in_water):
+	is_swimming = in_water
 "
 
 [sub_resource type="GDScript" id="GDScript_vf11m"]
@@ -285,6 +293,16 @@ scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
+[node name="Area2D" type="Area2D" parent="Arm1Bicep"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_te1dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm1Bicep/Area2D"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ocqkf")
+metadata/_edit_group_ = true
+
 [node name="ArmpitPin1" type="PinJoint2D" parent="."]
 position = Vector2(19, -5)
 node_a = NodePath("../Body")
@@ -296,7 +314,6 @@ position = Vector2(54, -5)
 collision_layer = 64
 collision_mask = 64
 script = ExtResource("2_6vbjk")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Arm1Forearm"]
 rotation = -2.41903
@@ -332,6 +349,16 @@ region_rect = Rect2(479, 52, 37, 29)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2Bicep"]
+scale = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ocqkf")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="Arm2Bicep"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_8f7gl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arm2Bicep/Area2D"]
 scale = Vector2(0.5, 1)
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
@@ -420,3 +447,11 @@ node_b = NodePath("../Leg2")
 [connection signal="body_entered" from="Body/Area2D" to="Body/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Body/Area2D" to="Body/Area2D" method="_on_body_exited"]
 [connection signal="water_state_changed" from="Body/Area2D" to="Body" method="_on_area_2d_water_state_changed"]
+[connection signal="body_entered" from="Arm1Bicep/Area2D" to="Arm1Bicep/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Arm1Bicep/Area2D" to="Arm1Bicep/Area2D" method="_on_body_exited"]
+[connection signal="swimming_change_state" from="Arm1Bicep/Area2D" to="Arm1Bicep" method="_on_area_2d_swimming_change_state"]
+[connection signal="swimming_change_state" from="Arm1Bicep/Area2D" to="Arm1Forearm" method="_on_area_2d_swimming_change_state"]
+[connection signal="body_entered" from="Arm2Bicep/Area2D" to="Arm2Bicep/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Arm2Bicep/Area2D" to="Arm2Bicep/Area2D" method="_on_body_exited"]
+[connection signal="swimming_change_state" from="Arm2Bicep/Area2D" to="Arm2Bicep" method="_on_area_2d_swimming_change_state"]
+[connection signal="swimming_change_state" from="Arm2Bicep/Area2D" to="Arm2Forearm" method="_on_area_2d_swimming_change_state"]
