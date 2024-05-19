@@ -1,10 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://xdp87vh2ffos"]
+[gd_scene load_steps=21 format=3 uid="uid://xdp87vh2ffos"]
 
 [ext_resource type="Texture2D" uid="uid://8m63iqdby7m5" path="res://art/player_sprite/SWIM qwop character sprite sheet.png" id="1_qkuc5"]
 [ext_resource type="Script" path="res://scenes/player/Arm1Forearm.gd" id="2_6vbjk"]
 [ext_resource type="Script" path="res://scenes/player/stroke1.gd" id="2_te1dd"]
 [ext_resource type="Script" path="res://scenes/player/Arm2Forearm.gd" id="3_ktgxt"]
 [ext_resource type="Script" path="res://scenes/player/stroke2.gd" id="4_8f7gl"]
+[ext_resource type="Script" path="res://scenes/player/kick1.gd" id="6_i8mlm"]
+[ext_resource type="Script" path="res://scenes/player/kick2.gd" id="7_45qpg"]
 
 [sub_resource type="GDScript" id="GDScript_2comb"]
 resource_name = "headscript"
@@ -144,7 +146,7 @@ func _process(delta):
 		apply_central_impulse(Vector2(10,-700))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_I\"):
-		apply_torque(-150)
+		apply_torque(-250)
 
 func _on_area_2d_swimming_change_state(in_water):
 	is_swimming = in_water
@@ -169,7 +171,7 @@ func _process(delta):
 		apply_central_impulse(Vector2(10,-700))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_M\"):
-		apply_torque(-150)
+		apply_torque(-250)
 
 func _on_area_2d_swimming_change_state(in_water):
 	is_swimming = in_water
@@ -179,41 +181,46 @@ func _on_area_2d_swimming_change_state(in_water):
 resource_name = "leg1"
 script/source = "extends RigidBody2D
 
+var is_swimming: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#old values Vector2(200,100), Vector2(0, 16)
 func _process(delta):
-	if Input.is_action_just_pressed(\"KEY_W\"):
+	if Input.is_action_just_pressed(\"KEY_W\") and is_swimming:
 		apply_impulse(Vector2(0,-700))
 		apply_torque(80)
-	if Input.is_action_just_released(\"KEY_W\"):
+	if Input.is_action_just_released(\"KEY_W\") and is_swimming:
 		apply_impulse(Vector2(0,-700))
 		apply_torque(-80)
+
+func _on_area_2d_swimming_change_state(in_water):
+	is_swimming = in_water
 "
 
 [sub_resource type="GDScript" id="GDScript_5bbhy"]
 resource_name = "leg2"
 script/source = "extends RigidBody2D
 
+var is_swimming: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed(\"KEY_S\"):
+	if Input.is_action_just_pressed(\"KEY_S\") and is_swimming:
 		apply_impulse(Vector2(0,-700))
 		apply_torque(80)
-	if Input.is_action_just_released(\"KEY_S\"):
+	if Input.is_action_just_released(\"KEY_S\") and is_swimming:
 		apply_impulse(Vector2(0,-700))
 		apply_torque(-80)
+
+func _on_area_2d_swimming_change_state(in_water):
+	is_swimming = in_water
 "
 
 [node name="Swimmer" type="Node2D"]
@@ -413,6 +420,15 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
+[node name="Area2D" type="Area2D" parent="Leg1"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("6_i8mlm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg1/Area2D"]
+shape = SubResource("RectangleShape2D_ocqkf")
+metadata/_edit_group_ = true
+
 [node name="HipPin1" type="PinJoint2D" parent="."]
 position = Vector2(-24, -1)
 node_a = NodePath("../Body")
@@ -436,6 +452,15 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_ocqkf")
 metadata/_edit_group_ = true
 
+[node name="Area2D" type="Area2D" parent="Leg2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_45qpg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Leg2/Area2D"]
+shape = SubResource("RectangleShape2D_ocqkf")
+metadata/_edit_group_ = true
+
 [node name="HipPin2" type="PinJoint2D" parent="."]
 position = Vector2(-24, 7)
 node_a = NodePath("../Body")
@@ -455,3 +480,9 @@ node_b = NodePath("../Leg2")
 [connection signal="body_exited" from="Arm2Bicep/Area2D" to="Arm2Bicep/Area2D" method="_on_body_exited"]
 [connection signal="swimming_change_state" from="Arm2Bicep/Area2D" to="Arm2Bicep" method="_on_area_2d_swimming_change_state"]
 [connection signal="swimming_change_state" from="Arm2Bicep/Area2D" to="Arm2Forearm" method="_on_area_2d_swimming_change_state"]
+[connection signal="body_entered" from="Leg1/Area2D" to="Leg1/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Leg1/Area2D" to="Leg1/Area2D" method="_on_body_exited"]
+[connection signal="swimming_change_state" from="Leg1/Area2D" to="Leg1" method="_on_area_2d_swimming_change_state"]
+[connection signal="body_entered" from="Leg2/Area2D" to="Leg2/Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Leg2/Area2D" to="Leg2/Area2D" method="_on_body_exited"]
+[connection signal="swimming_change_state" from="Leg2/Area2D" to="Leg2" method="_on_area_2d_swimming_change_state"]

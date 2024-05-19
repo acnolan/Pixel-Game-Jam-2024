@@ -12,6 +12,7 @@ func _process(delta):
 		apply_central_impulse(Vector2(0,-250))
 	if Input.is_action_just_released("KEY_I") and is_swimming:
 		apply_central_impulse(Vector2(-1,5))
+		apply_torque(-50)
 
 func _on_area_2d_swimming_change_state(in_water):
 	is_swimming = in_water
