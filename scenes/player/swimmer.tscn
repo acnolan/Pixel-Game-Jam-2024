@@ -137,13 +137,16 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#old code  apply_central_impulse(Vector2(0,-50))
+#apply_torque(-80)
+
+
 func _process(delta):
 	if Input.is_action_just_pressed(\"KEY_I\"):
 		apply_central_impulse(Vector2(10,-1500))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_I\"):
 		apply_torque(-150)
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ocqkf"]
 size = Vector2(48, 8)
@@ -160,12 +163,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
 	if Input.is_action_just_pressed(\"KEY_M\"):
 		apply_central_impulse(Vector2(10,-1500))
 		apply_torque(-150)
 	if Input.is_action_just_released(\"KEY_M\"):
 		apply_torque(-150)
-"
+
 
 [sub_resource type="GDScript" id="GDScript_vf11m"]
 resource_name = "leg1"
@@ -178,11 +182,10 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+#old values Vector2(200,100), Vector2(0, 16)
 func _process(delta):
 	if Input.is_action_just_pressed(\"KEY_W\"):
 		apply_impulse(Vector2(0,-1000), Vector2(0, 100))
-		apply_torque(80)
-"
 
 [sub_resource type="GDScript" id="GDScript_5bbhy"]
 resource_name = "leg2"
@@ -199,7 +202,6 @@ func _process(delta):
 	if Input.is_action_just_pressed(\"KEY_S\"):
 		apply_impulse(Vector2(0,-1000), Vector2(0, 100))
 		apply_torque(80)
-"
 
 [node name="Swimmer" type="Node2D"]
 
